@@ -2,11 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
-	pb "github.com/WeslleyRibeiro-1999/RPC-golang/proto"
+	pb "github.com/WeslleyRibeiro-1999/RPC-golang/pb"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -18,12 +17,11 @@ func main() {
 		log.Fatalf("could not connect: %v", err)
 	}
 	defer conn.Close()
-	fmt.Println("alou")
 
 	client := pb.NewHelloServiceClient(conn)
 
 	request := &pb.HelloRequest{
-		Msg: "Ola Mundo",
+		Name: "weslley",
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
@@ -34,5 +32,5 @@ func main() {
 		log.Fatalf("could not execute: %v", err)
 	}
 
-	log.Println(res.Text)
+	log.Println(res)
 }
